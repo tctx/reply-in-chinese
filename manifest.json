@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Reply in Chinese",
+  "version": "2.0.0",
+  "author": "Technical Patriots of America (TPA)",
+  "description": "Adds a 中 button to posts on X. Click it to draft a satirical reply written for that post. You review and post.",
+  "permissions": ["storage"],
+  "host_permissions": [
+    "https://x.com/*",
+    "https://twitter.com/*",
+    "https://api.openai.com/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://x.com/*", "https://twitter.com/*"],
+      "js": ["content.js"],
+      "css": ["content.css"],
+      "run_at": "document_idle"
+    }
+  ],
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "action": {
+    "default_title": "Reply in Chinese: settings",
+    "default_popup": "options.html"
+  }
+}

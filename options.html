@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Reply in Chinese</title>
+  <style>
+    body { font: 14px/1.4 system-ui, sans-serif; margin: 16px; width: 320px; color: #0f1419; background: #fff; }
+    h1 { font-size: 16px; margin: 0 0 12px; }
+    label { display: block; font-weight: 600; margin: 12px 0 4px; }
+    small { color: #536471; font-weight: 400; }
+    select, input { width: 100%; box-sizing: border-box; padding: 7px 8px; border: 1px solid #cfd9de; border-radius: 6px; font: inherit; }
+    .row { display: flex; gap: 8px; margin-top: 14px; align-items: center; }
+    button { padding: 6px 14px; border-radius: 999px; border: 1px solid #0f1419; background: #0f1419; color: #fff; cursor: pointer; font-weight: 600; }
+    #status { color: #00ba7c; }
+  </style>
+</head>
+<body>
+  <h1>Reply in Chinese</h1>
+
+  <label for="lang">Reply language</label>
+  <select id="lang">
+    <option value="zh">Chinese only</option>
+    <option value="both">Chinese + English</option>
+    <option value="en">English only</option>
+  </select>
+
+  <label for="model">OpenAI model</label>
+  <input id="model" placeholder="gpt-5.5">
+
+  <label for="key">OpenAI API key <small>(stays in your browser)</small></label>
+  <input id="key" type="password" placeholder="sk-…" autocomplete="off">
+
+  <div class="row">
+    <button id="save">Save</button>
+    <span id="status"></span>
+  </div>
+  <script src="options.js"></script>
+</body>
+</html>
