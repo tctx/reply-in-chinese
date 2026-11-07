@@ -7,31 +7,38 @@ importScripts("prompt.js");
 const DEFAULT_MODEL = "gpt-5.5";
 
 async function generate({ text, author }) {
-  const s = await chrome.storage.local.get(["openaiKey", "model", "lang"]);
+  const s = await chrome.storage.local.get(["openaiKey", "model"]);
   const key = (s.openaiKey || "").trim();
-  if (!key) throw new Error("No OpenAI key. Click the extension icon and add one.");
+  if (!key) throw new Error("No OpenAI key yet. Click the extension icon in the toolbar and paste one in.");
 
   const res = await fetch("https://api.openai.com/v1/chat/completions", {
     method: "POST",
     headers: { "Content-Type": "application/json", Authorization: `Bearer ${key}` },
     body: JSON.stringify({
       model: s.model || DEFAULT_MODEL,
-      messages: ricBuildMessages({ text, author, lang: s.lang || "zh" }),
+      messages: ricBuildMessages({ text, author }),
+      response_format: { type: "json_object" },
       max_completion_tokens: 2000
     })
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error?.message || `OpenAI error ${res.status}`);
-  const out = (data.choices?.[0]?.message?.content || "").trim().replace(/^["“]|["”]$/g, "");
-  if (!out) throw new Error("Empty reply from OpenAI.");
-  if (out === "SKIP") throw new Error("Not a policy post. Skipped.");
-  return out;
+
+  let out;
+  try {
+    out = JSON.parse(data.choices?.[0]?.message?.content || "{}");
+  } catch {
+    throw new Error("OpenAI sent back something unreadable. Try again.");
+  }
+  if (out.skip) throw new Error("Not a policy post, so it was skipped.");
+  if (!out.zh) throw new Error("Empty reply from OpenAI. Try again.");
+  return { zh: out.zh.trim(), en: (out.en || "").trim() };
 }
 
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   if (msg?.type !== "ric-generate") return;
   generate(msg)
-    .then((text) => sendResponse({ ok: true, text }))
+    .then((reply) => sendResponse({ ok: true, ...reply }))
     .catch((err) => sendResponse({ ok: false, error: String(err.message || err) }));
   return true; // async response
 });

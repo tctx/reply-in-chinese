@@ -2,7 +2,7 @@
 
 By **Technical Patriots of America (TPA)**
 
-A Chrome extension for X. It adds a **中** button to every post. Click it and it reads the post, asks OpenAI for a satirical reply aimed at that post, opens the reply box, and types it in. The reply is written as an over-the-top Communist Party cheerleader thanking the official for helping China beat America.
+A Chrome extension for X. It adds a **中** button to every post. Click it and it reads the post, asks OpenAI for a satirical reply aimed at that post, opens the reply box, and types it in, in Chinese. A small bubble shows you the English translation. The reply is written as an over-the-top Communist Party cheerleader thanking the official for helping China beat America.
 
 You read it and press Post yourself. Nothing posts automatically.
 
@@ -14,14 +14,13 @@ You read it and press Post yourself. Nothing posts automatically.
 5. Click the extension icon and paste your OpenAI API key
 
 ## Settings (click the toolbar icon)
-- **Reply language:** Chinese only (default), Chinese + English, or English only
 - **Model:** defaults to `gpt-5.5`
 - **OpenAI API key:** required. It's kept in your browser's local extension storage and only sent to `api.openai.com`.
 
 ## Button states
 - **中**: ready
 - **…**: writing
-- **!**: error. Hover over it to see why. Posts that aren't about policy are skipped.
+- **!**: error. A bubble explains what went wrong. Posts that aren't about policy are skipped.
 
 ## Rules built into the prompt
 - The satire targets the policy, not Chinese people: no slurs or ethnic stereotypes.

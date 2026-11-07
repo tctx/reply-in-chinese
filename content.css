@@ -22,3 +22,42 @@
 .ric-btn[data-state="error"] {
   color: rgb(244, 33, 46);
 }
+
+/* English translation / error bubble */
+.ric-bubble {
+  position: fixed;
+  z-index: 2147483647;
+  box-sizing: border-box;
+  padding: 10px 12px 12px;
+  border-radius: 12px;
+  background: #0f1419;
+  color: #fff;
+  font: 14px/1.4 system-ui, -apple-system, sans-serif;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+.ric-bubble.ric-error {
+  background: #fff;
+  color: #0f1419;
+  border: 1px solid #f4212e;
+}
+.ric-bubble-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  opacity: 0.75;
+}
+.ric-bubble-x {
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: 18px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0 2px;
+}
+.ric-bubble-body {
+  white-space: pre-wrap;
+}
